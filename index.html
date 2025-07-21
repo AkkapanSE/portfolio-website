@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AkkapanSE- Portfolio</title>
+    <title>portfolio-website-deverlopment</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -22,6 +30,9 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
             <div class="nav-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -30,20 +41,25 @@
         </div>
     </nav>
 
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="progress-bar"></div>
+    </div>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div id="particles-js"></div>
         <div class="hero-content">
-            <h1>Hello, I'm <span class="highlight">Akkapan Tosathisrangsan</span></h1>
-            <p class="hero-subtitle">Full Stack Developer</p>
-            <p class="hero-description">I create beautiful and functional web applications</p>
+            <h1>Hello, I'm <span class="highlight">Akkapan & Panuwat</span></h1>
+            <p class="hero-subtitle"></p>
+            <p class="hero-description"></p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
         </div>
         <div class="hero-image">
-            <img src="images/tee.png" alt="Profile Picture">
+            <img src="https://i.pinimg.com/736x/e0/25/7d/e0257d11d6a72efdd7b31260a6a161fe.jpg" alt="Profile Picture">
         </div>
     </section>
 
@@ -181,9 +197,11 @@
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <span>Akkapan_to67@live.rmutl.ac.th</span>
+                            <span>Panuwat_ta67@live.rmutl.ac.th</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
+                            <span>+66 12 345 6789</span>
                             <span>+66 12 345 6789</span>
                         </div>
                         <div class="contact-item">
@@ -216,7 +234,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Akkapan Tosathisrangsan. Software Engineering, RMUTL. All rights reserved.</p>
+            <p>&copy; 2025 teams:Software Engineering, RMUTL. All rights reserved.</p>
         </div>
     </footer>
 

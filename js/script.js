@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         type();
     }
 
+    // Initialize Typing Effect
     const heroTitle = document.querySelector('.hero h1');
     if (heroTitle) {
         const originalText = heroTitle.textContent;
@@ -43,10 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    });
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    }
     
     // Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -63,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 // Close mobile menu when clicking a link
-                if (navMenu.classList.contains('active')) {
+                if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     navToggle.classList.remove('active');
                 }
@@ -82,35 +85,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Dark Mode Toggle
-    const darkModeToggle = document.createElement('div');
-    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    darkModeToggle.style.position = 'fixed';
-    darkModeToggle.style.bottom = '20px';
-    darkModeToggle.style.right = '20px';
-    darkModeToggle.style.backgroundColor = '#3498db';
-    darkModeToggle.style.color = 'white';
-    darkModeToggle.style.width = '50px';
-    darkModeToggle.style.height = '50px';
-    darkModeToggle.style.borderRadius = '50%';
-    darkModeToggle.style.display = 'flex';
-    darkModeToggle.style.justifyContent = 'center';
-    darkModeToggle.style.alignItems = 'center';
-    darkModeToggle.style.cursor = 'pointer';
-    darkModeToggle.style.zIndex = '1000';
-    darkModeToggle.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-    document.body.appendChild(darkModeToggle);
-    
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const icon = darkModeToggle.querySelector('i');
-        if (document.body.classList.contains('dark-mode')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
+    const themeToggle = document.getElementById('theme-icon');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    // Apply saved theme
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+    }
+
+    function updateThemeIcon(theme) {
+        if (themeToggle) {
+            themeToggle.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
-    });
+    }
 
     // Back to Top Button
     const backToTopButton = document.createElement('button');
@@ -148,14 +145,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initialize Skill Progress Bars
-    const progressBars = document.querySelectorAll('.progress-bar');
+    const progressBars = document.querySelectorAll('.skill-progress .progress-bar');
     progressBars.forEach(bar => {
         const width = bar.getAttribute('data-width');
-        bar.style.width = width;
+        if (width) {
+            bar.style.width = width;
+        }
     });
 
+    // Scroll Progress Indicator
+    const scrollProgressBar = document.querySelector('.scroll-progress .progress-bar');
+    if (scrollProgressBar) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            scrollProgressBar.style.width = scrollPercent + '%';
+        });
+    }
+
     // Particle.js Background
-    if (window.particlesJS) {
+    if (typeof particlesJS === 'function') {
         particlesJS('particles-js', {
             "particles": {
                 "number": {
@@ -247,5 +258,18 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             "retina_detect": true
         });
+    }
+});
+
+// Loading Animation
+window.addEventListener('load', function() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        setTimeout(function() {
+            loader.classList.add('fade-out');
+            setTimeout(function() {
+                loader.style.display = 'none';
+            }, 500);
+        }, 1000);
     }
 });
